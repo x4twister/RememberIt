@@ -28,7 +28,9 @@ class RememberListFragment: Fragment() {
 
         binding.recycleView.run {
             layoutManager=LinearLayoutManager(activity)
-            adapter=TopicAdapter(listOf(Topic("abc"),Topic("xyz")))
+            adapter=TopicAdapter((1..50).map {
+                Topic(it.toString())
+            })
         }
 
         return binding.root
@@ -38,7 +40,7 @@ class RememberListFragment: Fragment() {
         fun newInstance()=RememberListFragment()
     }
 
-    inner class TopicHolder(val binding: ListItemTopicBinding) : RecyclerView.ViewHolder(binding.root){
+    inner class TopicHolder(private val binding: ListItemTopicBinding) : RecyclerView.ViewHolder(binding.root){
 
         fun bind(topic: Topic) {
             binding.viewModel!!.topic=topic

@@ -5,7 +5,9 @@
 
 package ru.x4twister.rememberit
 
+import android.view.View
 import androidx.databinding.BaseObservable
+import ru.x4twister.rememberit.game.GameActivity
 
 class TopicViewModel: BaseObservable() {
 
@@ -17,4 +19,10 @@ class TopicViewModel: BaseObservable() {
             field = value
             notifyChange()
         }
+
+    fun onClick(view:View){
+        val context=view.context
+        val intent=GameActivity.newIntent(context)
+        context.startActivity(intent)
+    }
 }

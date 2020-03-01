@@ -5,5 +5,4 @@
 
 package ru.x4twister.rememberit
 
-class Topic(val name:String) {
-}
+class Topic(val name:String)
