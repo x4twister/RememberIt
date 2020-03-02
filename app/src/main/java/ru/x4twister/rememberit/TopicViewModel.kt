@@ -22,7 +22,7 @@ class TopicViewModel: BaseObservable() {
 
     fun onClick(view:View){
         val context=view.context
-        val intent=GameActivity.newIntent(context)
+        val intent=GameActivity.newIntent(context,topic!!.id)
         context.startActivity(intent)
     }
 }

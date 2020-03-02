@@ -8,12 +8,23 @@ package ru.x4twister.rememberit.game
 import android.content.Context
 import android.content.Intent
 import ru.x4twister.rememberit.SingleFragmentActivity
+import java.util.*
 
 class GameActivity: SingleFragmentActivity() {
 
-    override fun createFragment()=GameFragment.newInstance()
+    override fun createFragment(): GameFragment {
+        val topicId=intent.getSerializableExtra(EXTRA_TOPIC_ID) as UUID
+        return GameFragment.newInstance(topicId)
+    }
 
     companion object {
-        fun newIntent(packageContext: Context)=Intent(packageContext,GameActivity::class.java)
+
+        const val EXTRA_TOPIC_ID="ru.x4twister.rememberit.game.topic_id"
+
+        fun newIntent(packageContext: Context,topicId:UUID): Intent {
+            val intent=Intent(packageContext,GameActivity::class.java)
+            intent.putExtra(EXTRA_TOPIC_ID,topicId)
+            return intent
+        }
     }
 }

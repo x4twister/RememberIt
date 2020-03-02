@@ -12,9 +12,17 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import ru.x4twister.rememberit.R
+import ru.x4twister.rememberit.Topic
 import ru.x4twister.rememberit.databinding.FragmentGameBinding
+import java.util.*
 
 class GameFragment: Fragment() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val topicId=arguments!!.getSerializable(ARG_TOPIC_ID) as UUID
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,6 +36,16 @@ class GameFragment: Fragment() {
     }
 
     companion object {
-        fun newInstance() = GameFragment()
+
+        const val ARG_TOPIC_ID="topic_id"
+
+        fun newInstance(topicId:UUID): GameFragment {
+            val args=Bundle()
+            args.putSerializable(ARG_TOPIC_ID,topicId)
+
+            val fragment=GameFragment()
+            fragment.arguments=args
+            return fragment
+        }
     }
 }

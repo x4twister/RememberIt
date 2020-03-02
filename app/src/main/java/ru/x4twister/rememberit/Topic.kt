@@ -5,4 +5,9 @@
 
 package ru.x4twister.rememberit
 
-class Topic(val name:String)
+import java.util.*
+
+class Topic(val id:UUID,val name:String,val questions:List<Question>){
+
+    class Question(val subject:String,val answer:String,val mistake: Int=0)
+}

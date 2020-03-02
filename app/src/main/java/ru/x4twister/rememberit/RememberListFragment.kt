@@ -28,9 +28,7 @@ class RememberListFragment: Fragment() {
 
         binding.recycleView.run {
             layoutManager=LinearLayoutManager(activity)
-            adapter=TopicAdapter((1..50).map {
-                Topic(it.toString())
-            })
+            adapter=TopicAdapter(TopicLab.topics)
         }
 
         return binding.root
