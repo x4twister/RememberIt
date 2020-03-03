@@ -14,4 +14,9 @@ object TopicLab{
             Topic.Question("Subject $it", "Answer $it")
         })
     }
+
+    fun getTopic(id: UUID)=
+        topics.find {
+            it.id==id
+        }
 }

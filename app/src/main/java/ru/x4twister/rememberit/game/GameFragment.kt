@@ -12,16 +12,17 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import ru.x4twister.rememberit.R
-import ru.x4twister.rememberit.Topic
 import ru.x4twister.rememberit.databinding.FragmentGameBinding
 import java.util.*
 
 class GameFragment: Fragment() {
 
+    var topicId:UUID?=null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val topicId=arguments!!.getSerializable(ARG_TOPIC_ID) as UUID
+        topicId=arguments!!.getSerializable(ARG_TOPIC_ID) as UUID
     }
 
     override fun onCreateView(
@@ -31,6 +32,8 @@ class GameFragment: Fragment() {
     ): View? {
         val binding:FragmentGameBinding=DataBindingUtil
             .inflate(inflater,R.layout.fragment_game,container,false)
+
+        binding.viewModel=GameViewModel(topicId!!)
 
         return binding.root
     }
