@@ -9,11 +9,7 @@ import androidx.databinding.BaseObservable
 import ru.x4twister.rememberit.TopicLab
 import java.util.*
 
-class GameViewModel(topicId: UUID): BaseObservable() {
-
-    private val topic=TopicLab.getTopic(topicId)!!
-    val question=topic.questions.random()
-    val answers=topic.questions.map {
-        it.answer
-    }.shuffled()
+class GameViewModel(val round: GameRound): BaseObservable() {
+    val subject
+        get() = "${round.question.subject} (${round.question.mistake})"
 }

@@ -9,5 +9,5 @@ import java.util.*
 
 class Topic(val id:UUID,val name:String,val questions:List<Question>){
 
-    class Question(val subject:String,val answer:String,val mistake: Int=0)
+    class Question(val subject:String,val answer:String,var mistake: Int=0)
 }

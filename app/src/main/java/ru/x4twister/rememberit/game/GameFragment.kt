@@ -11,13 +11,25 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import ru.x4twister.rememberit.R
+import ru.x4twister.rememberit.TopicLab
 import ru.x4twister.rememberit.databinding.FragmentGameBinding
+import ru.x4twister.rememberit.databinding.ListItemAnswerBinding
 import java.util.*
 
 class GameFragment: Fragment() {
 
-    var topicId:UUID?=null
+    private var topicId:UUID?=null
+
+    private val gameRound by lazy {
+        GameRound(TopicLab.getTopic(topicId!!)!!)
+    }
+
+    private val gameViewModel by lazy {
+        GameViewModel(gameRound)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +45,12 @@ class GameFragment: Fragment() {
         val binding:FragmentGameBinding=DataBindingUtil
             .inflate(inflater,R.layout.fragment_game,container,false)
 
-        binding.viewModel=GameViewModel(topicId!!)
+        binding.viewModel=gameViewModel
+
+        binding.recycleView.run {
+            layoutManager= LinearLayoutManager(activity)
+            adapter=AnswerAdapter(gameRound.answers)
+        }
 
         return binding.root
     }
@@ -49,6 +66,39 @@ class GameFragment: Fragment() {
             val fragment=GameFragment()
             fragment.arguments=args
             return fragment
+        }
+    }
+
+    inner class AnswerHolder(private val binding: ListItemAnswerBinding) : RecyclerView.ViewHolder(binding.root){
+
+        fun bind(Answer: String) {
+            binding.viewModel!!.answer=Answer
+        }
+
+        init {
+            binding.viewModel=AnswerViewModel(object: AnswerViewModel.Callback {
+                override fun questionChanged() {
+                    gameViewModel.notifyChange()
+                }
+            })
+            binding.viewModel!!.question=gameRound.question
+        }
+    }
+
+    inner class AnswerAdapter(private val answers: List<String>): RecyclerView.Adapter<AnswerHolder>() {
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnswerHolder {
+            val inflater=LayoutInflater.from(activity)
+            val binding: ListItemAnswerBinding =DataBindingUtil
+                .inflate(inflater,R.layout.list_item_answer,parent,false)
+
+            return AnswerHolder(binding)
+        }
+
+        override fun getItemCount()=answers.size
+
+        override fun onBindViewHolder(holder: AnswerHolder, position: Int) {
+            holder.bind(answers[position])
         }
     }
 }
