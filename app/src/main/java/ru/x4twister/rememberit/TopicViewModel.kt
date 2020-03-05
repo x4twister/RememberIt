@@ -24,7 +24,5 @@ class TopicViewModel: BaseObservable() {
         val context=view.context
         val intent=GameActivity.newIntent(context,topic!!.id)
         context.startActivity(intent)
-
-        // TODO по окончанию игры надо сохранить результаты
     }
 }

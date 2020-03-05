@@ -9,10 +9,9 @@ import android.graphics.Color
 import android.view.View
 import android.widget.TextView
 import androidx.databinding.BaseObservable
-import ru.x4twister.rememberit.Topic
 import java.lang.Integer.max
 
-class AnswerViewModel(private val callback:Callback): BaseObservable() {
+class AnswerViewModel(private val gameRound: GameRound,private val callback:Callback): BaseObservable() {
 
     interface Callback{
         fun questionChanged()
@@ -24,17 +23,17 @@ class AnswerViewModel(private val callback:Callback): BaseObservable() {
             notifyChange()
         }
 
-    var question: Topic.Question?=null
-
     fun onClick(view: View){
+        val question=gameRound.question
+
         (view as TextView).let {
-            if (it.text==question!!.answer){
+            if (it.text==question.answer){
                 it.setTextColor(Color.GREEN)
-                question!!.mistake=max(0,question!!.mistake-1)
+                question.mistake=max(0,question.mistake-1)
             }
             else {
                 it.setTextColor(Color.RED)
-                question!!.mistake=question!!.mistake+1
+                question.mistake=question.mistake+1
             }
         }
 

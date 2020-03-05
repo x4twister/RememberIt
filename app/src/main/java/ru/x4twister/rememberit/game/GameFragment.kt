@@ -76,12 +76,11 @@ class GameFragment: Fragment() {
         }
 
         init {
-            binding.viewModel=AnswerViewModel(object: AnswerViewModel.Callback {
+            binding.viewModel=AnswerViewModel(gameRound,object: AnswerViewModel.Callback {
                 override fun questionChanged() {
                     gameViewModel.notifyChange()
                 }
             })
-            binding.viewModel!!.question=gameRound.question
         }
     }
 

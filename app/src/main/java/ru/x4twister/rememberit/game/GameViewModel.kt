@@ -6,10 +6,8 @@
 package ru.x4twister.rememberit.game
 
 import androidx.databinding.BaseObservable
-import ru.x4twister.rememberit.TopicLab
-import java.util.*
 
-class GameViewModel(val round: GameRound): BaseObservable() {
+class GameViewModel(private val round: GameRound): BaseObservable() {
     val subject
         get() = "${round.question.subject} (${round.question.mistake})"
 }
