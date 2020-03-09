@@ -7,7 +7,7 @@ package ru.x4twister.rememberit
 
 import android.view.View
 import androidx.databinding.BaseObservable
-import ru.x4twister.rememberit.game.GameActivity
+import ru.x4twister.rememberit.editor.TopicActivity
 
 class TopicViewModel: BaseObservable() {
 
@@ -22,7 +22,7 @@ class TopicViewModel: BaseObservable() {
 
     fun onClick(view:View){
         val context=view.context
-        val intent=GameActivity.newIntent(context,topic!!.id)
+        val intent= TopicActivity.newIntent(context,topic!!.id)
         context.startActivity(intent)
     }
 }
