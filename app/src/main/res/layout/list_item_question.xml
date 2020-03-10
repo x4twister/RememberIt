@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="ru.x4twister.rememberit.editor.QuestionViewModel" />
+    </data>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="serif"
+        android:text="@{viewModel.question.subject}"
+        android:textSize="28sp"
+        android:onClick="@{()->viewModel.onClick()}"
+        tools:text="value" />
+</layout>
