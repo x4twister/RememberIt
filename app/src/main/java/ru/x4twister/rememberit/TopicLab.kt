@@ -9,8 +9,8 @@ import java.util.*
 
 object TopicLab{
 
-    val topics:List<Topic> = (1..50).map {
-        Topic(UUID.randomUUID(), "Name $it", (1..5).map {
+    var topics:List<Topic> = (1..3).map {
+        Topic("Name $it", (1..3).map {
             Topic.Question("Subject $it", "Answer $it")
         })
     }
@@ -19,4 +19,8 @@ object TopicLab{
         topics.find {
             it.id==id
         }
+
+    fun addTopic(topic: Topic){
+        topics = topics + topic
+    }
 }

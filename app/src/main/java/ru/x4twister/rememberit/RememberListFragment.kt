@@ -6,9 +6,7 @@
 package ru.x4twister.rememberit
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +15,14 @@ import ru.x4twister.rememberit.databinding.FragmentRememberListBinding
 import ru.x4twister.rememberit.databinding.ListItemTopicBinding
 
 class RememberListFragment: Fragment() {
+
+    private val topicAdapter=TopicAdapter(TopicLab.topics)
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,10 +34,29 @@ class RememberListFragment: Fragment() {
 
         binding.recycleView.run {
             layoutManager=LinearLayoutManager(activity)
-            adapter=TopicAdapter(TopicLab.topics)
+            adapter=topicAdapter
         }
 
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+
+        inflater.inflate(R.menu.fragment_remember_list,menu)
+    }
+
+    /** @see #TopicMenuViewModel description */
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // R.id.new_topic not found
+        TopicMenuViewModel.addTopic(context!!){
+            topicAdapter.run {
+                setTopics(TopicLab.topics)
+                notifyDataSetChanged()
+            }
+        }
+
+        return true
     }
 
     companion object {
@@ -49,7 +74,7 @@ class RememberListFragment: Fragment() {
         }
     }
 
-    inner class TopicAdapter(private val topics: List<Topic>): RecyclerView.Adapter<TopicHolder>() {
+    inner class TopicAdapter(private var topics: List<Topic>): RecyclerView.Adapter<TopicHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopicHolder {
             val inflater=LayoutInflater.from(activity)
@@ -63,6 +88,10 @@ class RememberListFragment: Fragment() {
 
         override fun onBindViewHolder(holder: TopicHolder, position: Int) {
             holder.bind(topics[position])
+        }
+
+        fun setTopics(newTopics: List<Topic>){
+            topics=newTopics
         }
     }
 }
