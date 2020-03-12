@@ -77,7 +77,7 @@ class GameFragment: Fragment() {
 
         init {
             binding.viewModel=AnswerViewModel(gameRound,object: AnswerViewModel.Callback {
-                override fun questionChanged() {
+                override fun answerChecked() {
                     gameViewModel.notifyChange()
                 }
             })

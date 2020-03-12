@@ -9,5 +9,5 @@ import androidx.databinding.BaseObservable
 
 class GameViewModel(private val round: GameRound): BaseObservable() {
     val subject
-        get() = "${round.question.subject} (${round.question.mistake})"
+        get() = round.title()
 }
