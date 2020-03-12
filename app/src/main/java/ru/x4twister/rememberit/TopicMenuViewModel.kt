@@ -14,7 +14,7 @@ import ru.x4twister.rememberit.editor.TopicActivity
 object TopicMenuViewModel {
 
     fun addTopic(context: Context, onTopicAdded: () -> Unit){
-        val topic=Topic("New topic", listOf(Topic.Question("Subject","Answer")))
+        val topic=Topic("New topic", mutableListOf(Topic.Question("Subject","Answer")))
         TopicLab.addTopic(topic)
 
         val intent=TopicActivity.newIntent(context,topic.id)

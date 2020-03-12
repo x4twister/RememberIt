@@ -35,7 +35,15 @@ class TopicFragment: Fragment() {
     }
 
     private val topicViewModel by lazy {
-        EditorViewModel(topic)
+        EditorViewModel(topic,object: EditorViewModel.Callback{
+            override fun onQuestionDeleted() {
+                updateUI()
+            }
+        })
+    }
+
+    private val questionAdapter by lazy {
+        QuestionAdapter(topic.questions)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,7 +67,7 @@ class TopicFragment: Fragment() {
 
         binding.recycleView.run {
             layoutManager= LinearLayoutManager(activity)
-            adapter=QuestionAdapter(topic.questions)
+            adapter=questionAdapter
         }
 
         return binding.root
@@ -81,6 +89,13 @@ class TopicFragment: Fragment() {
         }
 
         return true
+    }
+
+    private fun updateUI() {
+        questionAdapter.run {
+            setQuestions(topic.questions)
+            notifyDataSetChanged()
+        }
     }
 
     companion object{
@@ -112,7 +127,7 @@ class TopicFragment: Fragment() {
         }
     }
 
-    inner class QuestionAdapter(private val questions: List<Topic.Question>): RecyclerView.Adapter<QuestionHolder>() {
+    inner class QuestionAdapter(private var questions: List<Topic.Question>): RecyclerView.Adapter<QuestionHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuestionHolder {
             val inflater=LayoutInflater.from(activity)
@@ -126,6 +141,10 @@ class TopicFragment: Fragment() {
 
         override fun onBindViewHolder(holder: QuestionHolder, position: Int) {
             holder.bind(questions[position])
+        }
+
+        fun setQuestions(newQuestions: List<Topic.Question>){
+            questions=newQuestions
         }
     }
 }

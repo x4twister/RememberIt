@@ -12,7 +12,7 @@ object TopicLab{
     val topics= (1..3).map {
         Topic("Name $it", (1..3).map {
             Topic.Question("Subject $it", "Answer $it")
-        })
+        } as MutableList<Topic.Question>)
     } as MutableList<Topic>
 
     fun getTopic(id: UUID)=

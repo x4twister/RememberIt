@@ -10,7 +10,11 @@ import androidx.databinding.BaseObservable
 import ru.x4twister.rememberit.Topic
 import ru.x4twister.rememberit.game.GameActivity
 
-class EditorViewModel(val topic: Topic): BaseObservable() {
+class EditorViewModel(val topic: Topic,val callback:Callback): BaseObservable() {
+
+    interface Callback{
+        fun onQuestionDeleted()
+    }
 
     var editMode: Boolean=false
         set(value) {
@@ -18,12 +22,26 @@ class EditorViewModel(val topic: Topic): BaseObservable() {
             notifyChange()
         }
 
-    // TODO а если первого не будет?
-    var currentQuestion: Topic.Question = topic.questions.first()
+    var currentQuestion: Topic.Question? = nextQuestion()
         set(value) {
             field = value
             notifyChange()
         }
+
+    private fun nextQuestion()=
+        topic.questions.firstOrNull()
+
+    fun addQuestion(){
+    }
+
+    fun editQuestion(){
+    }
+
+    fun deleteQuestion(){
+        topic.questions.remove(currentQuestion)
+        currentQuestion=nextQuestion()
+        callback.onQuestionDeleted()
+    }
 
     fun play(view: View){
         val context=view.context
