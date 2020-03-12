@@ -6,9 +6,7 @@
 package ru.x4twister.rememberit.editor
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,6 +19,14 @@ import ru.x4twister.rememberit.databinding.ListItemQuestionBinding
 import java.util.*
 
 class TopicFragment: Fragment() {
+
+    interface Callback{
+        fun onTopicDeleted()
+    }
+
+    val callback: Callback by lazy {
+        activity as Callback
+    }
 
     private var topicId:UUID?=null
 
@@ -36,6 +42,8 @@ class TopicFragment: Fragment() {
         super.onCreate(savedInstanceState)
 
         topicId=arguments!!.getSerializable(ARG_TOPIC_ID) as UUID
+
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
@@ -55,6 +63,24 @@ class TopicFragment: Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+
+        inflater.inflate(R.menu.fragment_topic,menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        if (item.title=="Edit")
+            topicViewModel.editMode=topicViewModel.editMode.not()
+        else if (item.title=="Delete topic") {
+            TopicLab.deleteTopic(topic)
+            callback.onTopicDeleted()
+        }
+
+        return true
     }
 
     companion object{

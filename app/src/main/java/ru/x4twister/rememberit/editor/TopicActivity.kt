@@ -10,11 +10,11 @@ import android.content.Intent
 import ru.x4twister.rememberit.SingleFragmentActivity
 import java.util.*
 
-class TopicActivity: SingleFragmentActivity() {
+class TopicActivity: SingleFragmentActivity(), TopicFragment.Callback {
 
     override fun createFragment(): TopicFragment {
-        val topicId=intent.getSerializableExtra(EXTRA_TOPIC_ID) as UUID
-        return TopicFragment.newInstance(topicId)
+        val topicId=intent.getSerializableExtra(EXTRA_TOPIC_ID) as UUID?
+        return TopicFragment.newInstance(topicId!!)
     }
 
     companion object {
@@ -26,5 +26,9 @@ class TopicActivity: SingleFragmentActivity() {
             intent.putExtra(EXTRA_TOPIC_ID,topicId)
             return intent
         }
+    }
+
+    override fun onTopicDeleted() {
+        finish()
     }
 }

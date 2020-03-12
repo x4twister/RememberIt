@@ -9,11 +9,11 @@ import java.util.*
 
 object TopicLab{
 
-    var topics:List<Topic> = (1..3).map {
+    val topics= (1..3).map {
         Topic("Name $it", (1..3).map {
             Topic.Question("Subject $it", "Answer $it")
         })
-    }
+    } as MutableList<Topic>
 
     fun getTopic(id: UUID)=
         topics.find {
@@ -21,6 +21,10 @@ object TopicLab{
         }
 
     fun addTopic(topic: Topic){
-        topics = topics + topic
+        topics.add(topic)
+    }
+
+    fun deleteTopic(topic: Topic) {
+        topics.remove(topic)
     }
 }

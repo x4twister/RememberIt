@@ -12,6 +12,12 @@ import ru.x4twister.rememberit.game.GameActivity
 
 class EditorViewModel(val topic: Topic): BaseObservable() {
 
+    var editMode: Boolean=false
+        set(value) {
+            field = value
+            notifyChange()
+        }
+
     // TODO а если первого не будет?
     var currentQuestion: Topic.Question = topic.questions.first()
         set(value) {
@@ -24,4 +30,10 @@ class EditorViewModel(val topic: Topic): BaseObservable() {
         val intent= GameActivity.newIntent(context,topic.id)
         context.startActivity(intent)
     }
+
+    fun editVisibility()=
+        if (editMode)
+            View.VISIBLE
+        else
+            View.GONE
 }

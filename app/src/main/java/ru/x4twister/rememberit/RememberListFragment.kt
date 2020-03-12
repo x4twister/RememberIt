@@ -40,6 +40,12 @@ class RememberListFragment: Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        updateUI()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
 
@@ -49,14 +55,16 @@ class RememberListFragment: Fragment() {
     /** @see #TopicMenuViewModel description */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // R.id.new_topic not found
-        TopicMenuViewModel.addTopic(context!!){
-            topicAdapter.run {
-                setTopics(TopicLab.topics)
-                notifyDataSetChanged()
-            }
-        }
+        TopicMenuViewModel.addTopic(context!!) { updateUI() }
 
         return true
+    }
+
+    private fun updateUI() {
+        topicAdapter.run {
+            setTopics(TopicLab.topics)
+            notifyDataSetChanged()
+        }
     }
 
     companion object {
