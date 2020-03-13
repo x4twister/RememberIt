@@ -7,7 +7,7 @@ package ru.x4twister.rememberit
 
 import java.util.*
 
-class Topic(val name:String,val questions:MutableList<Question>){
+class Topic(var name:String, val questions:MutableList<Question>){
 
     val id: UUID=UUID.randomUUID()
 

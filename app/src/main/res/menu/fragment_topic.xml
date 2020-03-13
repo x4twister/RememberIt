@@ -7,6 +7,10 @@
         android:title="@string/edit"
         app:showAsAction="ifRoom|withText"/>
     <item
+        android:id="@+id/rename_topic"
+        android:title="@string/rename_topic"
+        app:showAsAction="never"/>
+    <item
         android:id="@+id/delete_topic"
         android:icon="@drawable/ic_menu_delete"
         android:title="@string/delete_topic"

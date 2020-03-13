@@ -5,6 +5,8 @@
 
 package ru.x4twister.rememberit.editor
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
@@ -80,15 +82,34 @@ class TopicFragment: Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-        if (item.title=="Edit")
-            topicViewModel.editMode=topicViewModel.editMode.not()
-        else if (item.title=="Delete topic") {
-            TopicLab.deleteTopic(topic)
-            callback.onTopicDeleted()
+        return when (item.title){
+            "Edit" -> {
+                topicViewModel.editMode=topicViewModel.editMode.not()
+                true
+            }
+            "Rename topic" -> {
+                val dialog=EditTextFragment.newInstance(topic.name,"name")
+                dialog.setTargetFragment(this,REQUEST_TEXT)
+                dialog.show(fragmentManager!!,DIALOG_TEXT)
+                true
+            }
+            "Delete topic" -> {
+                TopicLab.deleteTopic(topic)
+                callback.onTopicDeleted()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
+    }
 
-        return true
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode!=Activity.RESULT_OK)
+            return
+
+        if (requestCode==REQUEST_TEXT){
+            topic.name=data!!.getStringExtra(EditTextFragment.EXTRA_TEXT)!!
+            topicViewModel.notifyChange()
+        }
     }
 
     private fun updateUI() {
@@ -101,6 +122,8 @@ class TopicFragment: Fragment() {
     companion object{
 
         const val ARG_TOPIC_ID="topic_id"
+        const val DIALOG_TEXT="DialogText"
+        const val REQUEST_TEXT=0
 
         fun newInstance(topicId: UUID): TopicFragment {
             val args=Bundle()
