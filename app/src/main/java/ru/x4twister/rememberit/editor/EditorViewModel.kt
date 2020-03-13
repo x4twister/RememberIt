@@ -13,6 +13,8 @@ import ru.x4twister.rememberit.game.GameActivity
 class EditorViewModel(val topic: Topic,val callback:Callback): BaseObservable() {
 
     interface Callback{
+        fun onQuestionAdded(currentQuestion: Topic.Question)
+        fun onQuestionEdited(currentQuestion: Topic.Question)
         fun onQuestionDeleted()
     }
 
@@ -32,9 +34,14 @@ class EditorViewModel(val topic: Topic,val callback:Callback): BaseObservable() 
         topic.questions.firstOrNull()
 
     fun addQuestion(){
+        val question=Topic.Question("Subject","Answer")
+        topic.questions.add(question)
+        currentQuestion=question
+        callback.onQuestionAdded(currentQuestion!!)
     }
 
     fun editQuestion(){
+        callback.onQuestionEdited(currentQuestion!!)
     }
 
     fun deleteQuestion(){

@@ -61,5 +61,8 @@ class EditTextFragment: DialogFragment() {
 
             return fragment
         }
+
+        fun getValue(data: Intent?) =
+            data!!.getStringExtra(EXTRA_TEXT)!!
     }
 }

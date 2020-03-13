@@ -55,9 +55,13 @@ class RememberListFragment: Fragment() {
     /** @see #TopicMenuViewModel description */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // R.id.new_topic not found
-        TopicMenuViewModel.addTopic(context!!) { updateUI() }
-
-        return true
+        return when (item.title) {
+            "Create" -> {
+                TopicMenuViewModel.addTopic(context!!) { updateUI() }
+                true
+            }
+            else -> onOptionsItemSelected(item)
+        }
     }
 
     private fun updateUI() {

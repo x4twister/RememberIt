@@ -38,6 +38,16 @@ class TopicFragment: Fragment() {
 
     private val topicViewModel by lazy {
         EditorViewModel(topic,object: EditorViewModel.Callback{
+            override fun onQuestionAdded(currentQuestion: Topic.Question) {
+                onQuestionEdited(currentQuestion)
+            }
+
+            // TODO как использовать здесь topicViewModel?
+            override fun onQuestionEdited(currentQuestion: Topic.Question) {
+                showDialog(currentQuestion.answer,"Answer", REQUEST_ANSWER)
+                showDialog(currentQuestion.subject,"Subject", REQUEST_SUBJECT)
+            }
+
             override fun onQuestionDeleted() {
                 updateUI()
             }
@@ -88,9 +98,7 @@ class TopicFragment: Fragment() {
                 true
             }
             "Rename topic" -> {
-                val dialog=EditTextFragment.newInstance(topic.name,"name")
-                dialog.setTargetFragment(this,REQUEST_TEXT)
-                dialog.show(fragmentManager!!,DIALOG_TEXT)
+                showDialog(topic.name, "name", REQUEST_TEXT)
                 true
             }
             "Delete topic" -> {
@@ -102,13 +110,32 @@ class TopicFragment: Fragment() {
         }
     }
 
+    private fun showDialog(default: String, title: String, type: Int) {
+        val dialog = EditTextFragment.newInstance(default, title)
+        dialog.setTargetFragment(this, type)
+        dialog.show(fragmentManager!!, DIALOG_TEXT)
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode!=Activity.RESULT_OK)
             return
 
-        if (requestCode==REQUEST_TEXT){
-            topic.name=data!!.getStringExtra(EditTextFragment.EXTRA_TEXT)!!
-            topicViewModel.notifyChange()
+        when (requestCode){
+            REQUEST_TEXT -> {
+                topic.name=EditTextFragment.getValue(data)
+                topicViewModel.notifyChange()
+            }
+
+            REQUEST_SUBJECT -> {
+                topicViewModel.currentQuestion!!.subject=EditTextFragment.getValue(data)
+                topicViewModel.notifyChange()
+                updateUI()
+            }
+
+            REQUEST_ANSWER -> {
+                topicViewModel.currentQuestion!!.answer=EditTextFragment.getValue(data)
+                topicViewModel.notifyChange()
+            }
         }
     }
 
@@ -124,6 +151,8 @@ class TopicFragment: Fragment() {
         const val ARG_TOPIC_ID="topic_id"
         const val DIALOG_TEXT="DialogText"
         const val REQUEST_TEXT=0
+        const val REQUEST_SUBJECT=1
+        const val REQUEST_ANSWER=2
 
         fun newInstance(topicId: UUID): TopicFragment {
             val args=Bundle()

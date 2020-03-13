@@ -11,5 +11,5 @@ class Topic(var name:String, val questions:MutableList<Question>){
 
     val id: UUID=UUID.randomUUID()
 
-    class Question(val subject:String,val answer:String,var mistake: Int=0)
+    class Question(var subject:String, var answer:String, var mistake: Int=0)
 }
