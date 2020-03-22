@@ -6,15 +6,15 @@
 package ru.x4twister.rememberit.editor
 
 import androidx.databinding.BaseObservable
-import ru.x4twister.rememberit.Topic
+import ru.x4twister.rememberit.Question
 
 class QuestionViewModel(private val callback:Callback): BaseObservable() {
 
     interface Callback{
-        fun questionClicked(question: Topic.Question)
+        fun questionClicked(question: Question)
     }
 
-    var question: Topic.Question?=null
+    var question: Question?=null
         set(value) {
             field = value
             notifyChange()

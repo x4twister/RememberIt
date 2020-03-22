@@ -11,12 +11,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import io.realm.Realm
 import ru.x4twister.rememberit.databinding.FragmentRememberListBinding
 import ru.x4twister.rememberit.databinding.ListItemTopicBinding
 
 class RememberListFragment: Fragment() {
 
-    private val topicAdapter=TopicAdapter(TopicLab.topics)
+    private val topicAdapter by lazy {
+        TopicAdapter(TopicLab.topics)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +32,9 @@ class RememberListFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        Realm.init(context!!)
+
         val binding:FragmentRememberListBinding=DataBindingUtil
             .inflate(inflater,R.layout.fragment_remember_list,container,false)
 

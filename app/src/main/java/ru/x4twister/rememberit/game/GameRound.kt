@@ -7,7 +7,7 @@ package ru.x4twister.rememberit.game
 
 import ru.x4twister.rememberit.Topic
 
-class GameRound(private val topic: Topic) {
+class GameRound(topic: Topic) {
 
     private val question=topic.questions.random()
 

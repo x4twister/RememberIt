@@ -13,12 +13,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import ru.x4twister.rememberit.Question
 import ru.x4twister.rememberit.R
 import ru.x4twister.rememberit.Topic
 import ru.x4twister.rememberit.TopicLab
 import ru.x4twister.rememberit.databinding.FragmentTopicBinding
 import ru.x4twister.rememberit.databinding.ListItemQuestionBinding
-import java.util.*
 
 class TopicFragment: Fragment() {
 
@@ -30,20 +30,20 @@ class TopicFragment: Fragment() {
         activity as Callback
     }
 
-    private var topicId:UUID?=null
+    private var topicId:String=""
 
     private val topic:Topic by lazy {
-        TopicLab.getTopic(topicId!!)!!
+        TopicLab.getTopic(topicId)!!
     }
 
     private val topicViewModel by lazy {
         EditorViewModel(topic,object: EditorViewModel.Callback{
-            override fun onQuestionAdded(currentQuestion: Topic.Question) {
+            override fun onQuestionAdded(currentQuestion: Question) {
                 onQuestionEdited(currentQuestion)
             }
 
             // TODO как использовать здесь topicViewModel?
-            override fun onQuestionEdited(currentQuestion: Topic.Question) {
+            override fun onQuestionEdited(currentQuestion: Question) {
                 showDialog(currentQuestion.answer,"Answer", REQUEST_ANSWER)
                 showDialog(currentQuestion.subject,"Subject", REQUEST_SUBJECT)
             }
@@ -61,7 +61,7 @@ class TopicFragment: Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        topicId=arguments!!.getSerializable(ARG_TOPIC_ID) as UUID
+        topicId=arguments!!.getSerializable(ARG_TOPIC_ID) as String
 
         setHasOptionsMenu(true)
     }
@@ -154,7 +154,7 @@ class TopicFragment: Fragment() {
         const val REQUEST_SUBJECT=1
         const val REQUEST_ANSWER=2
 
-        fun newInstance(topicId: UUID): TopicFragment {
+        fun newInstance(topicId: String): TopicFragment {
             val args=Bundle()
             args.putSerializable(ARG_TOPIC_ID,topicId)
 
@@ -166,20 +166,20 @@ class TopicFragment: Fragment() {
 
     inner class QuestionHolder(private val binding: ListItemQuestionBinding) : RecyclerView.ViewHolder(binding.root){
 
-        fun bind(question: Topic.Question) {
+        fun bind(question: Question) {
             binding.viewModel!!.question=question
         }
 
         init {
             binding.viewModel=QuestionViewModel(object :QuestionViewModel.Callback{
-                override fun questionClicked(question: Topic.Question) {
+                override fun questionClicked(question: Question) {
                     topicViewModel.currentQuestion=question
                 }
             })
         }
     }
 
-    inner class QuestionAdapter(private var questions: List<Topic.Question>): RecyclerView.Adapter<QuestionHolder>() {
+    inner class QuestionAdapter(private var questions: List<Question>): RecyclerView.Adapter<QuestionHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuestionHolder {
             val inflater=LayoutInflater.from(activity)
@@ -195,7 +195,7 @@ class TopicFragment: Fragment() {
             holder.bind(questions[position])
         }
 
-        fun setQuestions(newQuestions: List<Topic.Question>){
+        fun setQuestions(newQuestions: List<Question>){
             questions=newQuestions
         }
     }

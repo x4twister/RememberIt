@@ -5,26 +5,33 @@
 
 package ru.x4twister.rememberit
 
-import java.util.*
+import io.realm.Realm
+import io.realm.RealmResults
+import io.realm.kotlin.where
 
 object TopicLab{
 
-    val topics= (1..3).map {
-        Topic("Name $it", (1..3).map {
-            Topic.Question("Subject $it", "Answer $it")
-        } as MutableList<Topic.Question>)
-    } as MutableList<Topic>
+    private val realm = Realm.getDefaultInstance()
 
-    fun getTopic(id: UUID)=
-        topics.find {
-            it.id==id
+    val topics: RealmResults<Topic>
+        get() {
+            return realm.where<Topic>().findAll()
         }
 
-    fun addTopic(topic: Topic){
-        topics.add(topic)
+    fun getTopic(id: String)=
+        realm.where<Topic>().equalTo("id",id).findFirst()
+
+    fun createTopic(): Topic{
+        realm.beginTransaction()
+        val topic=Topic.newInstance()
+        realm.commitTransaction()
+
+        return topic
     }
 
     fun deleteTopic(topic: Topic) {
-        topics.remove(topic)
+        realm.beginTransaction()
+        topic.deleteFromRealm()
+        realm.commitTransaction()
     }
 }

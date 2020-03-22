@@ -5,11 +5,44 @@
 
 package ru.x4twister.rememberit
 
+import io.realm.Realm
+import io.realm.RealmList
+import io.realm.RealmObject
+import io.realm.annotations.PrimaryKey
+import io.realm.kotlin.createObject
 import java.util.*
 
-class Topic(var name:String, val questions:MutableList<Question>){
+open class Topic : RealmObject() {
 
-    val id: UUID=UUID.randomUUID()
+    @PrimaryKey
+    var id: String=""
 
-    class Question(var subject:String, var answer:String, var mistake: Int=0)
+    var name:String="New topic"
+        set(value) {
+            realm.beginTransaction()
+            field = value
+            realm.commitTransaction()
+        }
+
+    var questions:RealmList<Question> = RealmList()
+
+    fun createQuestion(): Question {
+        realm.beginTransaction()
+        val question=Question.newInstance()
+        questions.add(question)
+        realm.commitTransaction()
+
+        return question
+    }
+
+    fun deleteQuestion(question: Question){
+        realm.beginTransaction()
+        questions.remove(question)
+        question.deleteFromRealm()
+        realm.commitTransaction()
+    }
+
+    companion object {
+        fun newInstance()=Realm.getDefaultInstance().createObject<Topic>(UUID.randomUUID().toString())
+    }
 }

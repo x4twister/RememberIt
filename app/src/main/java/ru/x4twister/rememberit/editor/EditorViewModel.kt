@@ -7,14 +7,15 @@ package ru.x4twister.rememberit.editor
 
 import android.view.View
 import androidx.databinding.BaseObservable
+import ru.x4twister.rememberit.Question
 import ru.x4twister.rememberit.Topic
 import ru.x4twister.rememberit.game.GameActivity
 
 class EditorViewModel(val topic: Topic,val callback:Callback): BaseObservable() {
 
     interface Callback{
-        fun onQuestionAdded(currentQuestion: Topic.Question)
-        fun onQuestionEdited(currentQuestion: Topic.Question)
+        fun onQuestionAdded(currentQuestion: Question)
+        fun onQuestionEdited(currentQuestion: Question)
         fun onQuestionDeleted()
     }
 
@@ -24,7 +25,7 @@ class EditorViewModel(val topic: Topic,val callback:Callback): BaseObservable() 
             notifyChange()
         }
 
-    var currentQuestion: Topic.Question? = nextQuestion()
+    var currentQuestion: Question? = nextQuestion()
         set(value) {
             field = value
             notifyChange()
@@ -34,9 +35,7 @@ class EditorViewModel(val topic: Topic,val callback:Callback): BaseObservable() 
         topic.questions.firstOrNull()
 
     fun addQuestion(){
-        val question=Topic.Question("Subject","Answer")
-        topic.questions.add(question)
-        currentQuestion=question
+        currentQuestion=topic.createQuestion()
         callback.onQuestionAdded(currentQuestion!!)
     }
 
@@ -45,7 +44,7 @@ class EditorViewModel(val topic: Topic,val callback:Callback): BaseObservable() 
     }
 
     fun deleteQuestion(){
-        topic.questions.remove(currentQuestion)
+        topic.deleteQuestion(currentQuestion!!)
         currentQuestion=nextQuestion()
         callback.onQuestionDeleted()
     }

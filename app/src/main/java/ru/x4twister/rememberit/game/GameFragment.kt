@@ -17,14 +17,13 @@ import ru.x4twister.rememberit.R
 import ru.x4twister.rememberit.TopicLab
 import ru.x4twister.rememberit.databinding.FragmentGameBinding
 import ru.x4twister.rememberit.databinding.ListItemAnswerBinding
-import java.util.*
 
 class GameFragment: Fragment() {
 
-    private var topicId:UUID?=null
+    private var topicId:String=""
 
     private val gameRound by lazy {
-        GameRound(TopicLab.getTopic(topicId!!)!!)
+        GameRound(TopicLab.getTopic(topicId)!!)
     }
 
     private val gameViewModel by lazy {
@@ -34,7 +33,7 @@ class GameFragment: Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        topicId=arguments!!.getSerializable(ARG_TOPIC_ID) as UUID
+        topicId=arguments!!.getSerializable(ARG_TOPIC_ID) as String
     }
 
     override fun onCreateView(
@@ -59,7 +58,7 @@ class GameFragment: Fragment() {
 
         const val ARG_TOPIC_ID="topic_id"
 
-        fun newInstance(topicId:UUID): GameFragment {
+        fun newInstance(topicId:String): GameFragment {
             val args=Bundle()
             args.putSerializable(ARG_TOPIC_ID,topicId)
 
