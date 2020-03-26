@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ru.x4twister.rememberit.R
-import ru.x4twister.rememberit.TopicLab
+import ru.x4twister.rememberit.model.TopicLab
 import ru.x4twister.rememberit.databinding.FragmentGameBinding
 import ru.x4twister.rememberit.databinding.ListItemAnswerBinding
 

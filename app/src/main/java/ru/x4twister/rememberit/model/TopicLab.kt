@@ -3,7 +3,7 @@
  * This code is licensed under MIT license (see LICENSE.txt for details)
  */
 
-package ru.x4twister.rememberit
+package ru.x4twister.rememberit.model
 
 import io.realm.Realm
 import io.realm.RealmResults
@@ -21,9 +21,9 @@ object TopicLab{
     fun getTopic(id: String)=
         realm.where<Topic>().equalTo("id",id).findFirst()
 
-    fun createTopic(): Topic{
+    fun createTopic(): Topic {
         realm.beginTransaction()
-        val topic=Topic.newInstance()
+        val topic= Topic.newInstance()
         realm.commitTransaction()
 
         return topic

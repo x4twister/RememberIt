@@ -13,10 +13,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ru.x4twister.rememberit.Question
+import ru.x4twister.rememberit.model.Question
 import ru.x4twister.rememberit.R
-import ru.x4twister.rememberit.Topic
-import ru.x4twister.rememberit.TopicLab
+import ru.x4twister.rememberit.model.Topic
+import ru.x4twister.rememberit.model.TopicLab
 import ru.x4twister.rememberit.databinding.FragmentTopicBinding
 import ru.x4twister.rememberit.databinding.ListItemQuestionBinding
 
@@ -32,7 +32,7 @@ class TopicFragment: Fragment() {
 
     private var topicId:String=""
 
-    private val topic:Topic by lazy {
+    private val topic: Topic by lazy {
         TopicLab.getTopic(topicId)!!
     }
 

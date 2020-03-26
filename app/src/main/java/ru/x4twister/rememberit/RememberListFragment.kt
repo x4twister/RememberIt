@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import io.realm.Realm
 import ru.x4twister.rememberit.databinding.FragmentRememberListBinding
 import ru.x4twister.rememberit.databinding.ListItemTopicBinding
+import ru.x4twister.rememberit.model.Topic
+import ru.x4twister.rememberit.model.TopicLab
 
 class RememberListFragment: Fragment() {
 

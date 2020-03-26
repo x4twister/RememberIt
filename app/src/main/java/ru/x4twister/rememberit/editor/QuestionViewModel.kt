@@ -6,7 +6,7 @@
 package ru.x4twister.rememberit.editor
 
 import androidx.databinding.BaseObservable
-import ru.x4twister.rememberit.Question
+import ru.x4twister.rememberit.model.Question
 
 class QuestionViewModel(private val callback:Callback): BaseObservable() {
 

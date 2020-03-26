@@ -5,7 +5,7 @@
 
 package ru.x4twister.rememberit.game
 
-import ru.x4twister.rememberit.Topic
+import ru.x4twister.rememberit.model.Topic
 
 class GameRound(topic: Topic) {
 

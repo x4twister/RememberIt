@@ -7,11 +7,11 @@ package ru.x4twister.rememberit.editor
 
 import android.view.View
 import androidx.databinding.BaseObservable
-import ru.x4twister.rememberit.Question
-import ru.x4twister.rememberit.Topic
+import ru.x4twister.rememberit.model.Question
+import ru.x4twister.rememberit.model.Topic
 import ru.x4twister.rememberit.game.GameActivity
 
-class EditorViewModel(val topic: Topic,val callback:Callback): BaseObservable() {
+class EditorViewModel(val topic: Topic, val callback:Callback): BaseObservable() {
 
     interface Callback{
         fun onQuestionAdded(currentQuestion: Question)

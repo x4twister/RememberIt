@@ -3,7 +3,7 @@
  * This code is licensed under MIT license (see LICENSE.txt for details)
  */
 
-package ru.x4twister.rememberit
+package ru.x4twister.rememberit.model
 
 import io.realm.Realm
 import io.realm.RealmList
@@ -28,7 +28,7 @@ open class Topic : RealmObject() {
 
     fun createQuestion(): Question {
         realm.beginTransaction()
-        val question=Question.newInstance()
+        val question= Question.newInstance()
         questions.add(question)
         realm.commitTransaction()
 
