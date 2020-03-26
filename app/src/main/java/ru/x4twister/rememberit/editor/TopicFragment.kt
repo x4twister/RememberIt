@@ -102,8 +102,7 @@ class TopicFragment: Fragment() {
                 true
             }
             "Delete topic" -> {
-                TopicLab.deleteTopic(topic)
-                callback.onTopicDeleted()
+                showDialog("", "Enter '${topic.name}' for delete", REQUEST_DELETE)
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -120,21 +119,30 @@ class TopicFragment: Fragment() {
         if (resultCode!=Activity.RESULT_OK)
             return
 
+        val result = EditTextFragment.getValue(data)
+
         when (requestCode){
             REQUEST_TEXT -> {
-                topic.name=EditTextFragment.getValue(data)
+                topic.name= result
                 topicViewModel.notifyChange()
             }
 
             REQUEST_SUBJECT -> {
-                topicViewModel.currentQuestion!!.subject=EditTextFragment.getValue(data)
+                topicViewModel.currentQuestion!!.subject= result
                 topicViewModel.notifyChange()
                 updateUI()
             }
 
             REQUEST_ANSWER -> {
-                topicViewModel.currentQuestion!!.answer=EditTextFragment.getValue(data)
+                topicViewModel.currentQuestion!!.answer= result
                 topicViewModel.notifyChange()
+            }
+
+            REQUEST_DELETE -> {
+                if (topic.name==result) {
+                    TopicLab.deleteTopic(topic)
+                    callback.onTopicDeleted()
+                }
             }
         }
     }
@@ -153,6 +161,7 @@ class TopicFragment: Fragment() {
         const val REQUEST_TEXT=0
         const val REQUEST_SUBJECT=1
         const val REQUEST_ANSWER=2
+        const val REQUEST_DELETE=3
 
         fun newInstance(topicId: String): TopicFragment {
             val args=Bundle()
