@@ -9,11 +9,25 @@ import ru.x4twister.rememberit.model.Topic
 
 class GameRound(topic: Topic) {
 
-    private val question=topic.questions.random()
+    private val question=topic.questions.toMutableList()
+        .run {
+            sortBy {
+                it.mistake
+            }
+            takeLast(Integer.max(1,count()/3)).toMutableList()
+                .also {
+                    it.addAll(take(Integer.max(1,count()/6)))
+                    it.add(random())
+                }
+                .distinct()
+                .random()
+        }
 
-    val answers=topic.questions.map {
+    val answers= listOf(question.answer)+topic.questions.map {
         it.answer
-    }.shuffled()
+    }.filter {
+        it!=question.answer
+    }.shuffled().take(4)
 
     fun title()="${question.subject} (${question.mistake})"
 
