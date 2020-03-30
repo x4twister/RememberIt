@@ -23,11 +23,13 @@ class GameRound(topic: Topic) {
                 .random()
         }
 
-    val answers= listOf(question.answer)+topic.questions.map {
-        it.answer
-    }.filter {
-        it!=question.answer
-    }.shuffled().take(4)
+    val answers= (listOf(question.answer)+topic.questions
+        .map {
+            it.answer
+        }.filter {
+            it!=question.answer
+        }.take(4)
+            ).shuffled()
 
     fun title()="${question.subject} (${question.mistake})"
 

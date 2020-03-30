@@ -17,16 +17,18 @@ abstract class SingleFragmentActivity: AppCompatActivity() {
     @get:LayoutRes
     protected val layoutResId=R.layout.activity_fragment
 
+    protected val containerId=R.id.fragment_container
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layoutResId)
 
         val fm = supportFragmentManager
-        var fragment = fm.findFragmentById(R.id.fragment_container)
+        var fragment = fm.findFragmentById(containerId)
         if (fragment == null) {
             fragment = createFragment()
             fm.beginTransaction()
-                .add(R.id.fragment_container, fragment)
+                .add(containerId, fragment)
                 .commit()
         }
     }

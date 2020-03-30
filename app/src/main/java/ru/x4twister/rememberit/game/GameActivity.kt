@@ -9,7 +9,7 @@ import android.content.Context
 import android.content.Intent
 import ru.x4twister.rememberit.SingleFragmentActivity
 
-class GameActivity: SingleFragmentActivity() {
+class GameActivity: SingleFragmentActivity(), GameFragment.Callback {
 
     override fun createFragment(): GameFragment {
         val topicId=intent.getSerializableExtra(EXTRA_TOPIC_ID) as String
@@ -25,5 +25,15 @@ class GameActivity: SingleFragmentActivity() {
             intent.putExtra(EXTRA_TOPIC_ID,topicId)
             return intent
         }
+    }
+
+    override fun newRound() {
+        replaceFragment(createFragment())
+    }
+
+    private fun replaceFragment(fragment: GameFragment){
+        supportFragmentManager.beginTransaction()
+            .replace(containerId,fragment)
+            .commit()
     }
 }

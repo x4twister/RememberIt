@@ -20,6 +20,14 @@ import ru.x4twister.rememberit.databinding.ListItemAnswerBinding
 
 class GameFragment: Fragment() {
 
+    interface Callback {
+        fun newRound()
+    }
+
+    val callback: Callback by lazy {
+        activity as Callback
+    }
+
     private var topicId:String=""
 
     private val gameRound by lazy {
@@ -76,8 +84,11 @@ class GameFragment: Fragment() {
 
         init {
             binding.viewModel=AnswerViewModel(gameRound,object: AnswerViewModel.Callback {
-                override fun answerChecked() {
+                override fun answerChecked(correct: Boolean) {
                     gameViewModel.notifyChange()
+
+                    if (correct)
+                        callback.newRound()
                 }
             })
         }

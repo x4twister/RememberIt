@@ -13,7 +13,7 @@ import androidx.databinding.BaseObservable
 class AnswerViewModel(private val gameRound: GameRound,private val callback:Callback): BaseObservable() {
 
     interface Callback{
-        fun answerChecked()
+        fun answerChecked(correct: Boolean)
     }
 
     var answer:String?=null
@@ -24,9 +24,10 @@ class AnswerViewModel(private val gameRound: GameRound,private val callback:Call
 
     fun onClick(view: View){
         (view as TextView).let {
-            it.setTextColor(if (gameRound.checkAnswer(it.text as String)) Color.GREEN else Color.RED)
-        }
+            val correct=gameRound.checkAnswer(it.text as String)
+            it.setTextColor(if (correct) Color.GREEN else Color.RED)
 
-        callback.answerChecked()
+            callback.answerChecked(correct)
+        }
     }
 }
