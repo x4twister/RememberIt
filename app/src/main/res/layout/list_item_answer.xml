@@ -10,9 +10,11 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{(view)->viewModel.onClick(view)}"
         android:fontFamily="serif"
+        android:onClick="@{(view)->viewModel.onClick(view)}"
         android:text="@{viewModel.answer}"
+        android:textAlignment="center"
         android:textSize="28sp"
+        android:textStyle="italic"
         tools:text="value" />
 </layout>

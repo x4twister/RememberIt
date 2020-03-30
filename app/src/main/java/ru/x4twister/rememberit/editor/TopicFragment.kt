@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ru.x4twister.rememberit.model.Question
@@ -80,6 +81,8 @@ class TopicFragment: Fragment() {
         binding.recycleView.run {
             layoutManager= LinearLayoutManager(activity)
             adapter=questionAdapter
+
+            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
 
         return binding.root

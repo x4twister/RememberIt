@@ -14,9 +14,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="cursive"
             android:text="@{viewModel.subject}"
             android:textAlignment="center"
+            android:textColor="@android:color/holo_blue_dark"
             android:textSize="32sp"
             tools:text="subject" />
         <androidx.recyclerview.widget.RecyclerView

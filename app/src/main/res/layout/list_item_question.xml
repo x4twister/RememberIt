@@ -11,8 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="serif"
-        android:text="@{viewModel.question.subject}"
-        android:textSize="28sp"
         android:onClick="@{()->viewModel.onClick()}"
+        android:text="@{viewModel.question.subject}"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="28sp"
         tools:text="value" />
 </layout>
