@@ -5,6 +5,9 @@
 
 package ru.x4twister.rememberit
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
@@ -15,6 +18,7 @@ import ru.x4twister.rememberit.databinding.FragmentRememberListBinding
 import ru.x4twister.rememberit.databinding.ListItemTopicBinding
 import ru.x4twister.rememberit.model.Topic
 import ru.x4twister.rememberit.model.TopicLab
+import java.io.InputStreamReader
 
 class RememberListFragment: Fragment() {
 
@@ -64,8 +68,35 @@ class RememberListFragment: Fragment() {
                 TopicMenuViewModel.addTopic(context!!) { updateUI() }
                 true
             }
+            "Load" -> {
+                val intent=Intent(Intent.ACTION_OPEN_DOCUMENT)
+                intent.addCategory(Intent.CATEGORY_OPENABLE)
+                intent.type="text/plain"
+
+                startActivityForResult(intent, REQUEST_DATA)
+                true
+            }
             else -> onOptionsItemSelected(item)
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode!= Activity.RESULT_OK)
+            return
+
+        when (requestCode) {
+            REQUEST_DATA -> {
+                data?.data?.also {
+                    val text=readTextFromUri(it)
+                    println(text)
+                }
+            }
+        }
+    }
+
+    private fun readTextFromUri(uri: Uri): String {
+        val inputStream = context!!.contentResolver.openInputStream(uri)!!
+        return InputStreamReader(inputStream).buffered().readText()
     }
 
     private fun updateUI() {
@@ -76,6 +107,8 @@ class RememberListFragment: Fragment() {
     }
 
     companion object {
+        const val REQUEST_DATA=0
+
         fun newInstance()=RememberListFragment()
     }
 

@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">RememberIt</string>
     <string name="new_topic">Create</string>
+    <string name="load_topic">Load</string>
     <string name="edit">Edit</string>
     <string name="delete_topic">Delete topic</string>
     <string name="rename_topic">Rename topic</string>
