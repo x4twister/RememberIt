@@ -14,9 +14,19 @@ import ru.x4twister.rememberit.model.TopicLab
  */
 object TopicMenuViewModel {
 
-    fun addTopic(context: Context, onTopicAdded: () -> Unit){
+    fun addTopic(context: Context, data: String="", onTopicAdded: () -> Unit){
 
         val topic= TopicLab.createTopic()
+
+        if (data.isNotEmpty()){
+            data.split("\n").forEach { line ->
+                line.split(",,").let {
+                    val question=topic.createQuestion()
+                    question.subject=it[0]
+                    question.answer=it[1]
+                }
+            }
+        }
 
         val intent=TopicActivity.newIntent(context,topic.id)
         context.startActivity(intent)

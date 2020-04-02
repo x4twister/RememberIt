@@ -87,8 +87,7 @@ class RememberListFragment: Fragment() {
         when (requestCode) {
             REQUEST_DATA -> {
                 data?.data?.also {
-                    val text=readTextFromUri(it)
-                    println(text)
+                    TopicMenuViewModel.addTopic(context!!,readTextFromUri(it)) { updateUI() }
                 }
             }
         }

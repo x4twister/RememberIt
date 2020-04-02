@@ -11,13 +11,16 @@ class GameRound(topic: Topic) {
 
     private val question=topic.questions.toMutableList()
         .run {
-            sortBy {
+            sortByDescending {
                 it.mistake
             }
-            takeLast(Integer.max(1,count()/3)).toMutableList()
+            takeWhile {
+                it.mistake>0
+            }.toMutableList()
                 .also {
-                    it.addAll(take(Integer.max(1,count()/6)))
-                    it.add(random())
+                    (0..Integer.max(1,count()/10)).forEach {_->
+                        it.add(random())
+                    }
                 }
                 .distinct()
                 .random()
@@ -28,7 +31,7 @@ class GameRound(topic: Topic) {
             it.answer
         }.filter {
             it!=question.answer
-        }.take(4)
+        }.shuffled().take(4)
             ).shuffled()
 
     fun title()="${question.subject} (${question.mistake})"
