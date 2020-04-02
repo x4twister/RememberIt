@@ -17,12 +17,18 @@ class GameRound(topic: Topic) {
             takeWhile {
                 it.mistake>0
             }.toMutableList()
-                .also {
-                    (0..Integer.max(1,count()/10)).forEach {_->
-                        it.add(random())
+                .also { result ->
+
+                    if (result.size<10){
+                        removeAll(result)
+                        result.addAll(takeWhile {
+                            it.mistake==0
+                        }.shuffled().take(10))
+
+                        if (result.size<10)
+                            result.addAll(shuffled().take(10))
                     }
                 }
-                .distinct()
                 .random()
         }
 
@@ -38,7 +44,7 @@ class GameRound(topic: Topic) {
 
     fun checkAnswer(answer: String)=
         if (answer==question.answer) {
-            question.mistake=Integer.max(0, question.mistake - 1)
+            question.mistake=Integer.max(-1, question.mistake - 1)
             true
         } else {
             question.mistake=question.mistake+1
