@@ -26,7 +26,7 @@ class GameRound(topic: Topic) {
                         }.shuffled().take(10))
 
                         if (result.size<10)
-                            result.addAll(shuffled().take(10))
+                            result.addAll(shuffled().take(10-result.size))
                     }
                 }
                 .random()

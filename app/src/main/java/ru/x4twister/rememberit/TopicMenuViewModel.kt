@@ -14,9 +14,12 @@ import ru.x4twister.rememberit.model.TopicLab
  */
 object TopicMenuViewModel {
 
-    fun addTopic(context: Context, data: String="", onTopicAdded: () -> Unit){
+    fun addTopic(context: Context, name: String="", data: String="", onTopicAdded: () -> Unit){
 
         val topic= TopicLab.createTopic()
+
+        if (name.isNotEmpty())
+            topic.name=name.removeSuffix(".txt")
 
         if (data.isNotEmpty()){
             data.split("\n").forEach { line ->

@@ -9,6 +9,7 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.provider.OpenableColumns
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -80,17 +81,29 @@ class RememberListFragment: Fragment() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
         if (resultCode!= Activity.RESULT_OK)
             return
 
         when (requestCode) {
             REQUEST_DATA -> {
-                data?.data?.also {
-                    TopicMenuViewModel.addTopic(context!!,readTextFromUri(it)) { updateUI() }
+                intent?.data?.also {
+                    val name=readNameFromUri(it)
+                    val text=readTextFromUri(it)
+                    TopicMenuViewModel.addTopic(context!!,name,text) { updateUI() }
                 }
             }
         }
+    }
+
+    private fun readNameFromUri(uri: Uri): String {
+        context!!.contentResolver.query(uri, null, null, null, null)?.use {
+            val nameIndex = it.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+            it.moveToFirst()
+            return it.getString(nameIndex)
+        }
+
+        return ""
     }
 
     private fun readTextFromUri(uri: Uri): String {
