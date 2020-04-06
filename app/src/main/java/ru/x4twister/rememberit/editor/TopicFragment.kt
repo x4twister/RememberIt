@@ -100,6 +100,11 @@ class TopicFragment: Fragment() {
                 topicViewModel.editMode=topicViewModel.editMode.not()
                 true
             }
+            "Info" -> {
+                val intent= InfoActivity.newIntent(context!!,topic.id)
+                context!!.startActivity(intent)
+                true
+            }
             "Rename topic" -> {
                 showDialog(topic.name, "name", REQUEST_TEXT)
                 true

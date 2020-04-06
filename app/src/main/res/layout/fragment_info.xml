@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="ru.x4twister.rememberit.editor.InfoViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="casual"
+            android:text="@{viewModel.topic.name}"
+            android:textAlignment="center"
+            android:textSize="30sp"
+            tools:text="Topic Name"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.totalQuestions}"
+            android:textSize="20sp"
+            tools:text="Total"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.passedQuestions}"
+            android:textSize="20sp"
+            tools:text="Passed"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.mistakenQuestions}"
+            android:textSize="20sp"
+            tools:text="Mistaken"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.lastMistakeQuestion}"
+            android:textSize="20sp"
+            tools:text="Last mistake"/>
+
+    </LinearLayout>
+</layout>

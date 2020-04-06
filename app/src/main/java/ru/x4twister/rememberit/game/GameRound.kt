@@ -40,14 +40,14 @@ class GameRound(topic: Topic) {
         }.shuffled().take(4)
             ).shuffled()
 
-    fun title()="${question.subject} (${question.mistake})"
+    fun title()= question.subject
 
     fun checkAnswer(answer: String)=
         if (answer==question.answer) {
             question.mistake=Integer.max(-1, question.mistake - 1)
             true
         } else {
-            question.mistake=question.mistake+1
+            question.mistake=question.mistake+2
             false
         }
 }

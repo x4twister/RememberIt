@@ -18,6 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".editor.TopicActivity"/>
+        <activity android:name=".editor.InfoActivity"/>
         <activity android:name=".game.GameActivity"/>
     </application>
 
