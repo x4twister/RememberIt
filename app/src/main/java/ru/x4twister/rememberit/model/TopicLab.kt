@@ -30,8 +30,28 @@ object TopicLab{
     }
 
     fun deleteTopic(topic: Topic) {
-        realm.beginTransaction()
-        topic.deleteFromRealm()
-        realm.commitTransaction()
+        realm.executeTransaction {
+            topic.deleteFromRealm()
+        }
+    }
+
+    fun createTopicFromText(name: String, data: String): Topic {
+
+        val topic= createTopic()
+
+        if (name.isNotEmpty())
+            topic.name=name.removeSuffix(".txt")
+
+        if (data.isNotEmpty()){
+            data.split("\n").forEach { line ->
+                line.split(",,").let {(subject,answer)->
+                    val question=topic.createQuestion()
+                    question.subject=subject
+                    question.answer=answer
+                }
+            }
+        }
+
+        return topic
     }
 }

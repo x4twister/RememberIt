@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ru.x4twister.rememberit.databinding.FragmentRememberListBinding
 import ru.x4twister.rememberit.databinding.ListItemTopicBinding
+import ru.x4twister.rememberit.editor.TopicActivity
 import ru.x4twister.rememberit.model.Topic
 import ru.x4twister.rememberit.model.TopicLab
 import java.io.InputStreamReader
@@ -61,12 +62,15 @@ class RememberListFragment: Fragment() {
         inflater.inflate(R.menu.fragment_remember_list,menu)
     }
 
-    /** @see #TopicMenuViewModel description */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // R.id.new_topic not found
         return when (item.title) {
             "Create" -> {
-                TopicMenuViewModel.addTopic(context!!) { updateUI() }
+                val topic= TopicLab.createTopic()
+
+                val intent= TopicActivity.newIntent(context!!,topic.id)
+                startActivity(intent)
+                updateUI()
                 true
             }
             "Load" -> {
@@ -90,7 +94,11 @@ class RememberListFragment: Fragment() {
                 intent?.data?.also {
                     val name=readNameFromUri(it)
                     val text=readTextFromUri(it)
-                    TopicMenuViewModel.addTopic(context!!,name,text) { updateUI() }
+                    val topic= TopicLab.createTopicFromText(name,text)
+
+                    val intent= TopicActivity.newIntent(context!!,topic.id)
+                    startActivity(intent)
+                    updateUI()
                 }
             }
         }

@@ -6,6 +6,7 @@
 package ru.x4twister.rememberit.game
 
 import ru.x4twister.rememberit.model.Topic
+import kotlin.math.max
 
 class GameRound(topic: Topic) {
 
@@ -44,7 +45,7 @@ class GameRound(topic: Topic) {
 
     fun checkAnswer(answer: String)=
         if (answer==question.answer) {
-            question.mistake=Integer.max(-1, question.mistake - 1)
+            question.mistake=max(-1, question.mistake - 1)
             true
         } else {
             question.mistake=question.mistake+2

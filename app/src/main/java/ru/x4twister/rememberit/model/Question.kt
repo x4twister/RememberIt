@@ -14,23 +14,23 @@ open class Question : RealmObject() {
 
     var subject:String="Subject"
         set(value) {
-            realm.beginTransaction()
-            field = value
-            realm.commitTransaction()
+            realm.executeTransaction {
+                field = value
+            }
         }
 
     var answer:String="Answer"
         set(value) {
-            realm.beginTransaction()
-            field = value
-            realm.commitTransaction()
+            realm.executeTransaction {
+                field = value
+            }
         }
 
     var mistake: Int=0
         set(value) {
-            realm.beginTransaction()
-            field = value
-            realm.commitTransaction()
+            realm.executeTransaction {
+                field = value
+            }
         }
 
     companion object {

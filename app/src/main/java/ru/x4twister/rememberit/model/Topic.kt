@@ -19,9 +19,9 @@ open class Topic : RealmObject() {
 
     var name:String="New topic"
         set(value) {
-            realm.beginTransaction()
-            field = value
-            realm.commitTransaction()
+            realm.executeTransaction {
+                field = value
+            }
         }
 
     var questions:RealmList<Question> = RealmList()
@@ -36,10 +36,10 @@ open class Topic : RealmObject() {
     }
 
     fun deleteQuestion(question: Question){
-        realm.beginTransaction()
-        questions.remove(question)
-        question.deleteFromRealm()
-        realm.commitTransaction()
+        realm.executeTransaction {
+            questions.remove(question)
+            question.deleteFromRealm()
+        }
     }
 
     companion object {
