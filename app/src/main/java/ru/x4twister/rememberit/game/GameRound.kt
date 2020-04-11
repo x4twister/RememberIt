@@ -8,7 +8,7 @@ package ru.x4twister.rememberit.game
 import ru.x4twister.rememberit.model.Topic
 import kotlin.math.max
 
-class GameRound(topic: Topic) {
+class GameRound(val topic: Topic) {
 
     private val question=topic.questions.toMutableList()
         .run {
@@ -51,4 +51,6 @@ class GameRound(topic: Topic) {
             question.mistake=question.mistake+2
             false
         }
+
+    fun isTopicCompleted()=topic.questions.none { it.mistake > -1 }
 }

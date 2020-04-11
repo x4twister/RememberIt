@@ -14,10 +14,12 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import ru.x4twister.rememberit.R
 import ru.x4twister.rememberit.model.TopicLab
 import ru.x4twister.rememberit.databinding.FragmentGameBinding
 import ru.x4twister.rememberit.databinding.ListItemAnswerBinding
+import ru.x4twister.rememberit.model.Topic
 
 class GameFragment: Fragment() {
 
@@ -29,10 +31,10 @@ class GameFragment: Fragment() {
         activity as Callback
     }
 
-    private var topicId:String=""
+    private lateinit var topic:Topic
 
     private val gameRound by lazy {
-        GameRound(TopicLab.getTopic(topicId)!!)
+        GameRound(topic)
     }
 
     private val gameViewModel by lazy {
@@ -42,7 +44,8 @@ class GameFragment: Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        topicId=arguments!!.getSerializable(ARG_TOPIC_ID) as String
+        val topicId=arguments!!.getSerializable(ARG_TOPIC_ID) as String
+        topic=TopicLab.getTopic(topicId)!!
     }
 
     override fun onCreateView(
@@ -63,6 +66,21 @@ class GameFragment: Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if (gameRound.isTopicCompleted()){
+            Snackbar.make(view!!,"All subjects resolved",Snackbar.LENGTH_LONG).also { snackbar ->
+                snackbar.setAction("reset",View.OnClickListener {
+                    topic.questions.forEach {
+                        it.reset()
+                    }
+                })
+                snackbar.show()
+            }
+        }
     }
 
     companion object {

@@ -33,6 +33,10 @@ open class Question : RealmObject() {
             }
         }
 
+    fun reset(){
+        mistake=0
+    }
+
     companion object {
         fun newInstance()=Realm.getDefaultInstance().createObject<Question>()
     }
