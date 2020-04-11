@@ -7,6 +7,7 @@ package ru.x4twister.rememberit.editor
 
 import android.view.View
 import androidx.databinding.BaseObservable
+import com.google.android.material.snackbar.Snackbar
 import ru.x4twister.rememberit.model.Question
 import ru.x4twister.rememberit.model.Topic
 import ru.x4twister.rememberit.game.GameActivity
@@ -50,9 +51,13 @@ class EditorViewModel(val topic: Topic, val callback:Callback): BaseObservable()
     }
 
     fun play(view: View){
-        val context=view.context
-        val intent= GameActivity.newIntent(context,topic.id)
-        context.startActivity(intent)
+        if (currentQuestion!=null){
+            val context=view.context
+            val intent= GameActivity.newIntent(context,topic.id)
+            context.startActivity(intent)
+        } else {
+            Snackbar.make(view,"Add questions for the game",Snackbar.LENGTH_LONG).show()
+        }
     }
 
     fun editVisibility()=
