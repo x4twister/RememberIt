@@ -22,4 +22,10 @@ class InfoViewModel(val topic: Topic): BaseObservable() {
     val lastMistakeQuestion="Last mistake: ${topic.questions
         .sortedBy { it.mistake }
         .lastOrNull { it.mistake > 0 }?.let{"${it.subject} (${it.answer})"}?:"None"}"
+
+    fun reset(){
+        topic.questions.forEach {
+            it.reset()
+        }
+    }
 }

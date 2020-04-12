@@ -7,6 +7,7 @@ package ru.x4twister.rememberit.game
 
 import ru.x4twister.rememberit.model.Topic
 import kotlin.math.max
+import kotlin.math.min
 
 class GameRound(val topic: Topic) {
 
@@ -48,7 +49,7 @@ class GameRound(val topic: Topic) {
             question.mistake=max(-1, question.mistake - 1)
             true
         } else {
-            question.mistake=question.mistake+2
+            question.mistake=min(10,question.mistake+2)
             false
         }
 

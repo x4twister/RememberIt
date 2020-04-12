@@ -44,10 +44,12 @@ object TopicLab{
 
         if (data.isNotEmpty()){
             data.split("\n").forEach { line ->
-                line.split(",,").let {(subject,answer)->
-                    val question=topic.createQuestion()
-                    question.subject=subject
-                    question.answer=answer
+                line.split(",,").let {
+                    if (it.size==2){
+                        val question=topic.createQuestion()
+                        question.subject=it[0]
+                        question.answer=it[1]
+                    }
                 }
             }
         }
