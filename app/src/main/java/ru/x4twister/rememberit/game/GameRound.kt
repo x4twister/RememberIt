@@ -44,6 +44,15 @@ class GameRound(val topic: Topic) {
 
     fun title()= question.subject
 
+    fun fullTitle()=title().run {
+        "*".repeat(question.answer.length).let {
+            if (!contains(it))
+                this
+            else
+                replace(it,question.answer)
+        }
+    }
+
     fun checkAnswer(answer: String)=
         if (answer==question.answer) {
             question.mistake=max(-1, question.mistake - 1)

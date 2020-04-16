@@ -6,6 +6,7 @@
 package ru.x4twister.rememberit.game
 
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,13 +33,14 @@ class GameFragment: Fragment() {
     }
 
     private lateinit var topic:Topic
+    private lateinit var tts: TextToSpeech
 
     private val gameRound by lazy {
         GameRound(topic)
     }
 
     private val gameViewModel by lazy {
-        GameViewModel(gameRound)
+        GameViewModel(gameRound,tts)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,6 +48,10 @@ class GameFragment: Fragment() {
 
         val topicId=arguments!!.getSerializable(ARG_TOPIC_ID) as String
         topic=TopicLab.getTopic(topicId)!!
+
+        tts=TextToSpeech(context, TextToSpeech.OnInitListener{
+            gameViewModel.speak()
+        })
     }
 
     override fun onCreateView(

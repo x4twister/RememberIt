@@ -5,9 +5,13 @@
 
 package ru.x4twister.rememberit.game
 
+import android.speech.tts.TextToSpeech
 import androidx.databinding.BaseObservable
 
-class GameViewModel(private val round: GameRound): BaseObservable() {
+class GameViewModel(private val round: GameRound,private val tts: TextToSpeech): BaseObservable() {
+
     val subject
         get() = round.title()
+
+    fun speak()=tts.speak(round.fullTitle(), TextToSpeech.QUEUE_FLUSH, null, "")
 }
