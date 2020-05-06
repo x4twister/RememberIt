@@ -18,8 +18,9 @@
             android:text="@{viewModel.subject}"
             android:textAlignment="center"
             android:textColor="@android:color/holo_blue_dark"
-            android:textSize="32sp"
+            android:textSize="22sp"
             tools:text="subject" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycle_view"
             android:layout_width="match_parent"

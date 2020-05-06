@@ -14,7 +14,6 @@
         android:onClick="@{(view)->viewModel.onClick(view)}"
         android:text="@{viewModel.answer}"
         android:textAlignment="center"
-        android:textSize="28sp"
-        android:textStyle="italic"
+        android:textSize="22sp"
         tools:text="value" />
 </layout>

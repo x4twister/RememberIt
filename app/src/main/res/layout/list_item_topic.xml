@@ -11,9 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="@{(view)->viewModel.onClick(view)}"
-        android:fontFamily="casual"
         android:text="@{viewModel.title}"
         android:textAlignment="center"
-        android:textSize="30sp"
+        android:textSize="26sp"
         tools:text="value" />
 </layout>

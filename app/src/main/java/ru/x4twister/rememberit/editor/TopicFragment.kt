@@ -109,6 +109,12 @@ class TopicFragment: Fragment() {
                 showDialog(topic.name, "name", REQUEST_TEXT)
                 true
             }
+            "Swap questions" -> {
+                topic.swapQuestions()
+                topicViewModel.notifyChange()
+                updateUI()
+                true
+            }
             "Delete topic" -> {
                 showDialog("", "Enter '${topic.name}' for delete", REQUEST_DELETE)
                 true

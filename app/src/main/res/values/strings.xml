@@ -6,4 +6,5 @@
     <string name="info">Info</string>
     <string name="delete_topic">Delete topic</string>
     <string name="rename_topic">Rename topic</string>
+    <string name="swap">Swap questions</string>
 </resources>

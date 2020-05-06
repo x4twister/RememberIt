@@ -50,7 +50,7 @@ class GameFragment: Fragment() {
         topic=TopicLab.getTopic(topicId)!!
 
         tts=TextToSpeech(context, TextToSpeech.OnInitListener{
-            gameViewModel.speak()
+            //gameViewModel.speak()
         })
     }
 

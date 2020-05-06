@@ -16,6 +16,10 @@
         android:title="@string/rename_topic"
         app:showAsAction="never"/>
     <item
+        android:id="@+id/swap_questions"
+        android:title="@string/swap"
+        app:showAsAction="never"/>
+    <item
         android:id="@+id/delete_topic"
         android:icon="@drawable/ic_menu_delete"
         android:title="@string/delete_topic"

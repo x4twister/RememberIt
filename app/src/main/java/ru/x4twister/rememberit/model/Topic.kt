@@ -42,6 +42,15 @@ open class Topic : RealmObject() {
         }
     }
 
+    fun swapQuestions(){
+        questions.map { question->
+            question.subject=question.answer.also {
+                question.answer=question.subject
+                question.reset()
+            }
+        }
+    }
+
     companion object {
         fun newInstance()=Realm.getDefaultInstance().createObject<Topic>(UUID.randomUUID().toString())
     }

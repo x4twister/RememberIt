@@ -15,6 +15,6 @@
         android:text="@{viewModel.question.subject}"
         android:textAlignment="center"
         android:textColor="@android:color/holo_blue_dark"
-        android:textSize="28sp"
+        android:textSize="22sp"
         tools:text="value" />
 </layout>
