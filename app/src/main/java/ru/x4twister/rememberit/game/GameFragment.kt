@@ -62,6 +62,8 @@ class GameFragment: Fragment() {
         val binding:FragmentGameBinding=DataBindingUtil
             .inflate(inflater,R.layout.fragment_game,container,false)
 
+        activity?.title=topic.name
+
         binding.viewModel=gameViewModel
 
         binding.recycleView.run {

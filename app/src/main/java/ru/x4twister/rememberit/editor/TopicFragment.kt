@@ -76,6 +76,8 @@ class TopicFragment: Fragment() {
         val binding: FragmentTopicBinding =DataBindingUtil
             .inflate(inflater, R.layout.fragment_topic,container,false)
 
+        activity?.title=topic.name
+
         binding.viewModel=topicViewModel
 
         binding.recycleView.run {

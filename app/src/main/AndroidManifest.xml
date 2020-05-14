@@ -13,11 +13,11 @@
         <activity android:name=".RememberListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".editor.TopicActivity"/>
+        <activity android:name=".editor.TopicActivity"
+            android:parentActivityName=".RememberListActivity"/>
         <activity android:name=".editor.InfoActivity"/>
         <activity android:name=".game.GameActivity"/>
     </application>
