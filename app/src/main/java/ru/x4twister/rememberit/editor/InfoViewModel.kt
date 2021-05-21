@@ -9,6 +9,7 @@ import androidx.databinding.BaseObservable
 import ru.x4twister.rememberit.model.Topic
 import kotlin.math.max
 
+/** ViewModel for InfoFragment */
 class InfoViewModel(val topic: Topic): BaseObservable() {
 
     val totalQuestions="Total: ${topic.questions.size}"

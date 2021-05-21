@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.databinding.BaseObservable
 
+/** ViewModel for recyclerView item in GameFragment */
 class AnswerViewModel(private val gameRound: GameRound,private val callback:Callback): BaseObservable() {
 
     interface Callback{

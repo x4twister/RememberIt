@@ -8,6 +8,7 @@ package ru.x4twister.rememberit.editor
 import androidx.databinding.BaseObservable
 import ru.x4twister.rememberit.model.Question
 
+/** ViewModel for recyclerView item in TopicFragment */
 class QuestionViewModel(private val callback:Callback): BaseObservable() {
 
     interface Callback{

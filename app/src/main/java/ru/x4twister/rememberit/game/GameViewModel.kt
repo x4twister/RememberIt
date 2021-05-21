@@ -8,6 +8,7 @@ package ru.x4twister.rememberit.game
 import android.speech.tts.TextToSpeech
 import androidx.databinding.BaseObservable
 
+/** ViewModel for GameFragment */
 class GameViewModel(private val round: GameRound,private val tts: TextToSpeech): BaseObservable() {
 
     val subject

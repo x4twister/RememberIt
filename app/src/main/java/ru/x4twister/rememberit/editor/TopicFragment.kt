@@ -33,6 +33,7 @@ class TopicFragment: Fragment() {
 
     private var topicId:String=""
 
+    // everything is lazy because topicId gets from onCreate()
     private val topic: Topic by lazy {
         TopicLab.getTopic(topicId)!!
     }

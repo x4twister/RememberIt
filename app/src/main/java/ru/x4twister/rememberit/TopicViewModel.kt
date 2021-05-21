@@ -10,6 +10,7 @@ import androidx.databinding.BaseObservable
 import ru.x4twister.rememberit.editor.TopicActivity
 import ru.x4twister.rememberit.model.Topic
 
+/** ViewModel for recyclerView item in RememberListFragment */
 class TopicViewModel: BaseObservable() {
 
     val title

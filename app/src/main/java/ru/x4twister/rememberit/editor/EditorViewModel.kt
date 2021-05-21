@@ -12,6 +12,7 @@ import ru.x4twister.rememberit.model.Question
 import ru.x4twister.rememberit.model.Topic
 import ru.x4twister.rememberit.game.GameActivity
 
+/** ViewModel for TopicFragment */
 class EditorViewModel(val topic: Topic, val callback:Callback): BaseObservable() {
 
     interface Callback{

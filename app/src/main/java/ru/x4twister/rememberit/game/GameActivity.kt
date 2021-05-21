@@ -28,6 +28,7 @@ class GameActivity: SingleFragmentActivity(), GameFragment.Callback {
     }
 
     override fun newRound() {
+        // each round is a new fragment
         replaceFragment(createFragment())
     }
 
