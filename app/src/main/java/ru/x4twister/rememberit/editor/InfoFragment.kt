@@ -22,7 +22,7 @@ class InfoFragment: Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        topicId=arguments!!.getSerializable(ARG_TOPIC_ID) as String
+        topicId=requireArguments().getSerializable(ARG_TOPIC_ID) as String
     }
 
     override fun onCreateView(

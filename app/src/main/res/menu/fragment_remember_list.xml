@@ -2,12 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/new_topic"
         android:icon="@drawable/ic_menu_add"
         android:title="@string/new_topic"
         app:showAsAction="ifRoom|withText"/>
     <item
-        android:id="@+id/load_topic"
         android:title="@string/load_topic"
         app:showAsAction="never"/>
 </menu>

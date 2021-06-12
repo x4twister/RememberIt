@@ -46,12 +46,12 @@ class GameFragment: Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val topicId=arguments!!.getSerializable(ARG_TOPIC_ID) as String
+        val topicId=requireArguments().getSerializable(ARG_TOPIC_ID) as String
         topic=TopicLab.getTopic(topicId)!!
 
-        tts=TextToSpeech(context, TextToSpeech.OnInitListener{
+        tts=TextToSpeech(context) {
             //gameViewModel.speak()
-        })
+        }
     }
 
     override fun onCreateView(
@@ -80,12 +80,12 @@ class GameFragment: Fragment() {
         super.onResume()
 
         if (gameRound.isTopicCompleted()){
-            Snackbar.make(view!!,"All subjects resolved",Snackbar.LENGTH_LONG).also { snackbar ->
-                snackbar.setAction("reset",View.OnClickListener {
+            Snackbar.make(requireView(),"All subjects resolved",Snackbar.LENGTH_LONG).also { snackbar ->
+                snackbar.setAction("reset") {
                     topic.questions.forEach {
                         it.reset()
                     }
-                })
+                }
                 snackbar.show()
             }
         }

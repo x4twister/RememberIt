@@ -7,6 +7,7 @@ package ru.x4twister.rememberit
 
 import android.app.Application
 import io.realm.Realm
+import io.realm.RealmConfiguration
 
 class RememberApplication: Application() {
 
@@ -14,5 +15,9 @@ class RememberApplication: Application() {
         super.onCreate()
 
         Realm.init(this)
+        val configuration = RealmConfiguration.Builder()
+            .allowWritesOnUiThread(true)
+            .build()
+        Realm.setDefaultConfiguration(configuration)
     }
 }

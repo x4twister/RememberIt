@@ -63,7 +63,7 @@ class TopicFragment: Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        topicId=arguments!!.getSerializable(ARG_TOPIC_ID) as String
+        topicId=requireArguments().getSerializable(ARG_TOPIC_ID) as String
 
         setHasOptionsMenu(true)
     }
@@ -104,8 +104,8 @@ class TopicFragment: Fragment() {
                 true
             }
             "Info" -> {
-                val intent= InfoActivity.newIntent(context!!,topic.id)
-                context!!.startActivity(intent)
+                val intent= InfoActivity.newIntent(requireContext(),topic.id)
+                requireContext().startActivity(intent)
                 true
             }
             "Rename topic" -> {
@@ -129,7 +129,7 @@ class TopicFragment: Fragment() {
     private fun showDialog(default: String, title: String, type: Int) {
         val dialog = EditTextFragment.newInstance(default, title)
         dialog.setTargetFragment(this, type)
-        dialog.show(fragmentManager!!, DIALOG_TEXT)
+        dialog.show(requireFragmentManager(), DIALOG_TEXT)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -141,7 +141,7 @@ class TopicFragment: Fragment() {
         when (requestCode){
             REQUEST_TEXT -> {
                 topic.name= result
-                topicViewModel.notifyChange()
+                activity?.title=topic.name
             }
 
             REQUEST_SUBJECT -> {

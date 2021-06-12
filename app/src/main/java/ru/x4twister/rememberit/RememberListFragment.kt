@@ -68,7 +68,7 @@ class RememberListFragment: Fragment() {
             "Create" -> {
                 val topic= TopicLab.createTopic()
 
-                val intent= TopicActivity.newIntent(context!!,topic.id)
+                val intent= TopicActivity.newIntent(requireContext(),topic.id)
                 startActivity(intent)
                 updateUI()
                 true
@@ -96,7 +96,7 @@ class RememberListFragment: Fragment() {
                     val text=readTextFromUri(it)
                     val topic= TopicLab.createTopicFromText(name,text)
 
-                    val intent= TopicActivity.newIntent(context!!,topic.id)
+                    val intent= TopicActivity.newIntent(requireContext(),topic.id)
                     startActivity(intent)
                     updateUI()
                 }
@@ -105,7 +105,7 @@ class RememberListFragment: Fragment() {
     }
 
     private fun readNameFromUri(uri: Uri): String {
-        context!!.contentResolver.query(uri, null, null, null, null)?.use {
+        requireContext().contentResolver.query(uri, null, null, null, null)?.use {
             val nameIndex = it.getColumnIndex(OpenableColumns.DISPLAY_NAME)
             it.moveToFirst()
             return it.getString(nameIndex)
@@ -115,7 +115,7 @@ class RememberListFragment: Fragment() {
     }
 
     private fun readTextFromUri(uri: Uri): String {
-        val inputStream = context!!.contentResolver.openInputStream(uri)!!
+        val inputStream = requireContext().contentResolver.openInputStream(uri)!!
         return InputStreamReader(inputStream).buffered().readText()
     }
 
