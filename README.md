@@ -8,3 +8,5 @@ App for remembering everything
 - learn topics by playing quiz
 - adaptive question selection algorithm
 - edit topics on the device or import from a file
+
+![](rememberit.gif)
